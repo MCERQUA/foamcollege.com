@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8" /><title>Form Detection</title></head>
+  <body>
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input name="bot-field" />
+      <input type="hidden" name="traffic_source" />
+      <input type="hidden" name="landing_url" />
+      <input type="text" name="name" />
+      <input type="tel" name="phone" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
+    <form name="guidance" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="guidance" />
+      <input name="bot-field" />
+      <input type="hidden" name="traffic_source" />
+      <input type="hidden" name="landing_url" />
+      <input type="text" name="name" />
+      <input type="tel" name="phone" />
+      <input type="email" name="email" />
+      <input type="text" name="state" />
+      <select name="situation">
+        <option value="Not Yet Certified — Just Starting Out">Not Yet Certified — Just Starting Out</option>
+        <option value="Certified, Need to Renew / Recertify">Certified, Need to Renew / Recertify</option>
+        <option value="Comparing Certification Programs">Comparing Certification Programs</option>
+        <option value="Confused About My State's Requirements">Confused About My State's Requirements</option>
+        <option value="Something Else">Something Else</option>
+      </select>
+      <textarea name="details"></textarea>
+    </form>
+  </body>
+</html>

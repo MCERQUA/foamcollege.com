@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SPFA PCP Certification Explained - FoamCollege</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Public+Sans:wght@500;600&amp;family=Work+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries,typography"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              background: "#FAF4E9",
+              ink: "#2E140F",
+              primary: "#7A2E1F",
+              secondary: "#4A251C",
+              accent: "#CEA73B",
+              sage: "#4E654E",
+              dark_bg: "#1A0A08"
+            },
+            borderRadius: {
+              "DEFAULT": "0.5rem",
+              "lg": "1rem",
+              "xl": "1.5rem",
+              "full": "9999px"
+            },
+            fontFamily: {
+              headline: ["Work Sans", "sans-serif"],
+              display: ["Work Sans", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+              label: ["Public Sans", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .filled-icon {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      
+      /* Typography defaults for article */
+      .prose h2, .prose h3 { font-family: 'Work Sans', sans-serif; color: #2E140F; }
+      .prose h2 { font-weight: 700; font-size: 1.875rem; margin-top: 2.5rem; margin-bottom: 1.25rem; letter-spacing: -0.025em; }
+      .prose h3 { font-weight: 600; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
+      .prose p { margin-bottom: 1.5rem; color: #2E140F; opacity: 0.9; }
+      .prose strong { color: #2E140F; font-weight: 600; }
+    </style>
+</head>
+<body class="bg-background text-ink font-body antialiased selection:bg-accent/30 selection:text-ink">
+<!-- TopNavBar -->
+<nav aria-label="Main Navigation" class="bg-background text-primary font-headline text-lg font-medium leading-tight sticky w-full top-0 z-50 border-b border-ink/10 shadow-sm">
+<div class="flex justify-between items-center px-4 md:px-8 py-4 w-full max-w-7xl mx-auto">
+<!-- Brand -->
+<a aria-label="FoamCollege Home" class="text-2xl font-headline font-bold text-primary tracking-tight shrink-0 flex items-center gap-2" href="#">
+<span aria-hidden="true" class="material-symbols-outlined filled-icon text-accent">school</span>
+                FoamCollege
+            </a>
+<!-- Desktop Nav Links -->
+<div class="hidden md:flex items-center space-x-8">
+<a aria-current="page" class="text-primary font-bold border-b-2 border-primary pb-1 active-nav-item" href="#">Topics</a>
+<a class="text-ink font-medium hover:text-accent transition-colors duration-200" href="#">Blog</a>
+<a class="text-ink font-medium hover:text-accent transition-colors duration-200" href="#">About</a>
+<a class="text-ink font-medium hover:text-accent transition-colors duration-200" href="#">Contact</a>
+</div>
+<!-- Actions -->
+<div class="hidden md:flex items-center space-x-6">
+<a class="text-ink font-medium hover:text-accent transition-colors duration-200 text-sm" href="tel:8005550199">(800) 555-0199</a>
+<a class="bg-primary text-background px-6 py-2.5 rounded-full font-label font-semibold text-sm hover:bg-secondary transition-all hover:shadow-md focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background" href="#">
+                    Get Guidance
+                </a>
+</div>
+<!-- Mobile Menu Button -->
+<button aria-label="Open Menu" class="md:hidden text-ink p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<header class="relative w-full h-[60vh] min-h-[400px] max-h-[600px] flex items-center justify-center overflow-hidden">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0 bg-ink">
+<div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-k2B_l85uutgSrmu0ZvdfZVVa4rGBl8508ozVidJfH0fS13nwqTdSSmsYLQ3OukC3i6ywNN1PrZt_lXxGxhqP_MBrldC6TGg5WMQzOKjEF_cmkvAWfwdvNIAH-uqrT2DBIUxu3VhKcoIsQ9I5VMt1Iuy_TLQPbww4gxeTPWp_dDxQG7WtlMe7oNeGUEKkzkWTwxWe25ruKHcpfoNuOPuUU5EgvadZ4iY0k7S6e55PJDaJkEJUDvZA9hY2_PEw32ashRUeMku7zrxi')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/50 to-transparent"></div>
+</div>
+<!-- Hero Content -->
+<div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-12">
+<div class="inline-block mb-4 px-3 py-1 bg-accent/20 border border-accent/40 rounded-full backdrop-blur-sm">
+<span class="text-accent font-label text-sm font-semibold tracking-wide uppercase">Certification Guide</span>
+</div>
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-headline font-bold text-background mb-6 leading-tight tracking-tight drop-shadow-lg">
+                    SPFA PCP Certification Explained
+                </h1>
+<p class="text-lg md:text-xl text-background/90 font-body font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+                    Your comprehensive guide to the industry-standard Professional Certification Program.
+                </p>
+</div>
+</header>
+<!-- Trust Bar -->
+<section aria-label="Trust Indicators" class="bg-white border-b border-ink/10 py-4">
+<div class="max-w-7xl mx-auto px-4 md:px-8">
+<div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center text-sm font-label font-medium text-ink/70">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sage text-lg">verified</span>
+<span>Independent &amp; Unbiased</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sage text-lg">local_library</span>
+<span>Academic Resource</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sage text-lg">update</span>
+<span>Updated for 2024</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Article Body -->
+<article class="max-w-3xl mx-auto px-6 md:px-8 py-16 md:py-24">
+<div class="prose prose-lg prose-ink mx-auto font-body text-lg leading-relaxed">
+<p class="text-xl text-ink font-medium leading-relaxed mb-10 border-l-4 border-primary pl-6 py-1">
+                    Navigating the world of spray polyurethane foam (SPF) application requires more than just hands-on experience. The Spray Polyurethane Foam Alliance (SPFA) Professional Certification Program (PCP) stands as the gold standard for verifying applicator competence, safety knowledge, and installation quality across the industry.
+                </p>
+<h2>What is the SPFA PCP?</h2>
+<p>
+                    The SPFA Professional Certification Program (PCP) is an internationally recognized, ISO-compliant certification for spray foam professionals. Developed by industry experts, it provides an objective, standardized assessment of an installer's skills and knowledge. Unlike manufacturer-specific training, which often focuses on proprietary chemical systems, the SPFA PCP evaluates fundamental building science, health and safety protocols, and universal application techniques.
+                </p>
+<p>
+                    Achieving this certification demonstrates a commitment to excellence and significantly reduces liability risks for both the contractor and the client. It is often a prerequisite for bidding on commercial projects and government contracts.
+                </p>
+<h2>The Certification Levels</h2>
+<p>
+                    The program is structured in a tiered format, designed to guide professionals from entry-level assistants to master installers. This progression ensures that foundational knowledge is solidified before advanced techniques are introduced.
+                </p>
+<ul class="list-disc pl-6 mb-8 space-y-2 text-ink/90">
+<li><strong>Assistant:</strong> Focuses heavily on health and safety, equipment handling, and job site preparation.</li>
+<li><strong>Installer:</strong> Builds upon the Assistant level, introducing basic application techniques, substrate preparation, and basic troubleshooting.</li>
+<li><strong>Master Installer:</strong> The highest tier, demanding deep knowledge of building envelopes, advanced application methods, thermal boundaries, and complex problem-solving on-site.</li>
+</ul>
+<h2>Exam Requirements</h2>
+<p>
+                    Each level of certification requires passing a rigorous written examination. These exams are closed-book and proctored to maintain integrity. In addition to the written exams, candidates must document field experience. Higher levels, such as Master Installer, require a Field Examination where candidates must demonstrate their skills practically before an SPFA-approved examiner.
+                </p>
+<!-- Key Takeaways Box -->
+<div class="my-12 p-8 bg-background border border-primary/20 rounded-xl shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 w-2 h-full bg-accent"></div>
+<h3 class="flex items-center gap-3 text-primary font-bold text-xl mt-0 mb-6">
+<span class="material-symbols-outlined text-accent text-2xl">key</span>
+                        Key Takeaways
+                    </h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-sage shrink-0 mt-0.5">check_circle</span>
+<span class="font-medium text-ink">SPFA PCP is the industry's independent standard, not tied to a specific manufacturer.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-sage shrink-0 mt-0.5">check_circle</span>
+<span class="font-medium text-ink">Certification is tiered: Assistant, Installer, and Master Installer.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-sage shrink-0 mt-0.5">check_circle</span>
+<span class="font-medium text-ink">It involves both rigorous written exams and practical field assessments.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-sage shrink-0 mt-0.5">check_circle</span>
+<span class="font-medium text-ink">Maintaining certification requires ongoing continuing education (CEUs).</span>
+</li>
+</ul>
+</div>
+<h2>Renewal Process</h2>
+<p>
+                    Certification is not a one-time achievement. To maintain active status, professionals must renew their certification annually and complete a recertification process every five years. This involves accruing Continuing Education Units (CEUs) to ensure installers stay current with evolving building codes, safety regulations, and material technologies.
+                </p>
+</div>
+</article>
+<!-- FAQ Section -->
+<section aria-labelledby="faq-heading" class="bg-white py-16 md:py-24 border-t border-ink/5">
+<div class="max-w-3xl mx-auto px-6 md:px-8">
+<div class="text-center mb-12">
+<h2 class="text-3xl font-headline font-bold text-ink mb-4" id="faq-heading">Frequently Asked Questions</h2>
+<p class="text-ink/70 font-body">Common queries regarding the SPFA certification process.</p>
+</div>
+<div class="space-y-4">
+<!-- FAQ 1 -->
+<details class="group bg-background border border-ink/10 rounded-xl [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex cursor-pointer items-center justify-between gap-1.5 p-6 text-ink font-headline font-semibold text-lg focus:ring-2 focus:ring-accent focus:outline-none rounded-xl">
+                            How much does the SPFA PCP certification cost?
+                            <span class="relative size-5 shrink-0">
+<span class="material-symbols-outlined absolute inset-0 transition-transform duration-300 group-open:rotate-180">expand_more</span>
+</span>
+</summary>
+<div class="px-6 pb-6 pt-0 text-ink/80 font-body leading-relaxed">
+                            Costs vary depending on the level of certification being pursued and whether you are an SPFA member. Exam fees typically range from $150 to $300 per exam, with additional costs for study materials and field examinations.
+                        </div>
+</details>
+<!-- FAQ 2 -->
+<details class="group bg-background border border-ink/10 rounded-xl [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex cursor-pointer items-center justify-between gap-1.5 p-6 text-ink font-headline font-semibold text-lg focus:ring-2 focus:ring-accent focus:outline-none rounded-xl">
+                            Can I skip the Assistant level and test straight for Master Installer?
+                            <span class="relative size-5 shrink-0">
+<span class="material-symbols-outlined absolute inset-0 transition-transform duration-300 group-open:rotate-180">expand_more</span>
+</span>
+</summary>
+<div class="px-6 pb-6 pt-0 text-ink/80 font-body leading-relaxed">
+                            No. The SPFA PCP is a progressive program. Candidates must successfully complete the exams and requirements for the Assistant level before progressing to the Installer level, and similarly must hold Installer certification before testing for Master Installer.
+                        </div>
+</details>
+<!-- FAQ 3 -->
+<details class="group bg-background border border-ink/10 rounded-xl [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex cursor-pointer items-center justify-between gap-1.5 p-6 text-ink font-headline font-semibold text-lg focus:ring-2 focus:ring-accent focus:outline-none rounded-xl">
+                            How do I earn CEUs for renewal?
+                            <span class="relative size-5 shrink-0">
+<span class="material-symbols-outlined absolute inset-0 transition-transform duration-300 group-open:rotate-180">expand_more</span>
+</span>
+</summary>
+<div class="px-6 pb-6 pt-0 text-ink/80 font-body leading-relaxed">
+                            CEUs can be earned by attending SPFA-approved training sessions, participating in industry webinars, attending the annual SprayFoam Convention, and completing relevant safety courses (like OSHA 10 or 30).
+                        </div>
+</details>
+</div>
+</div>
+</section>
+<!-- Related Topics -->
+<section aria-labelledby="related-heading" class="bg-background py-16 md:py-24 border-t border-ink/10">
+<div class="max-w-7xl mx-auto px-6 md:px-8">
+<div class="flex items-center justify-between mb-10">
+<h2 class="text-2xl md:text-3xl font-headline font-bold text-ink" id="related-heading">Related Topics</h2>
+<a class="text-primary font-label font-semibold text-sm hover:text-accent flex items-center gap-1 transition-colors" href="#">
+                        View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+<!-- Card 1 -->
+<a class="group flex flex-col bg-white border border-ink/10 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 focus:ring-2 focus:ring-accent focus:outline-none" href="#">
+<div class="p-6 flex-grow flex flex-col">
+<span class="material-symbols-outlined text-sage text-3xl mb-4 group-hover:scale-110 transition-transform">map</span>
+<h3 class="text-xl font-headline font-bold text-ink mb-2 group-hover:text-primary transition-colors">State Licensing Guide</h3>
+<p class="text-ink/70 font-body text-sm leading-relaxed mb-4">Navigate the complex web of state-specific contractor licensing requirements for SPF application.</p>
+<span class="mt-auto text-primary font-label text-sm font-semibold flex items-center gap-1">
+                                Read Guide <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</span>
+</div>
+</a>
+<!-- Card 2 -->
+<a class="group flex flex-col bg-white border border-ink/10 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 focus:ring-2 focus:ring-accent focus:outline-none" href="#">
+<div class="p-6 flex-grow flex flex-col">
+<span class="material-symbols-outlined text-sage text-3xl mb-4 group-hover:scale-110 transition-transform">precision_manufacturing</span>
+<h3 class="text-xl font-headline font-bold text-ink mb-2 group-hover:text-primary transition-colors">Manufacturer Certs</h3>
+<p class="text-ink/70 font-body text-sm leading-relaxed mb-4">Understand the difference between SPFA PCP and training provided directly by material manufacturers.</p>
+<span class="mt-auto text-primary font-label text-sm font-semibold flex items-center gap-1">
+                                Compare Options <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</span>
+</div>
+</a>
+<!-- Card 3 -->
+<a class="group flex flex-col bg-white border border-ink/10 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 focus:ring-2 focus:ring-accent focus:outline-none" href="#">
+<div class="p-6 flex-grow flex flex-col">
+<span class="material-symbols-outlined text-sage text-3xl mb-4 group-hover:scale-110 transition-transform">autorenew</span>
+<h3 class="text-xl font-headline font-bold text-ink mb-2 group-hover:text-primary transition-colors">Recertification CEUs</h3>
+<p class="text-ink/70 font-body text-sm leading-relaxed mb-4">A complete guide to finding and tracking valid Continuing Education Units to maintain your status.</p>
+<span class="mt-auto text-primary font-label text-sm font-semibold flex items-center gap-1">
+                                Find CEUs <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</span>
+</div>
+</a>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section aria-labelledby="cta-heading" class="bg-primary text-background py-16 md:py-24 relative overflow-hidden">
+<!-- Decorative pattern -->
+<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#FAF4E9 1px, transparent 1px); background-size: 24px 24px;"></div>
+<div class="max-w-4xl mx-auto px-6 md:px-8 text-center relative z-10">
+<h2 class="text-3xl md:text-4xl font-headline font-bold mb-6" id="cta-heading">Need Clarity on Certification?</h2>
+<p class="text-lg text-background/80 font-body max-w-2xl mx-auto mb-10 leading-relaxed">
+                    The path to SPFA certification can be complex. Let our academic resources guide you through the requirements, exams, and renewals.
+                </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<a class="w-full sm:w-auto bg-accent text-ink px-8 py-4 rounded-xl font-headline font-bold text-lg hover:bg-white transition-all shadow-lg hover:shadow-xl focus:ring-4 focus:ring-white/30 focus:outline-none" href="#">
+                        Get Guidance Now
+                    </a>
+<a class="w-full sm:w-auto bg-transparent border-2 border-background/30 text-background px-8 py-4 rounded-xl font-headline font-bold text-lg hover:bg-background/10 transition-all focus:ring-4 focus:ring-white/30 focus:outline-none flex items-center justify-center gap-2" href="tel:8005550199">
+<span class="material-symbols-outlined">call</span>
+                        (800) 555-0199
+                    </a>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer aria-labelledby="footer-heading" class="bg-[#2E140F] dark:bg-[#1A0A08] w-full">
+<h2 class="sr-only" id="footer-heading">Footer</h2>
+<div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 w-full max-w-7xl mx-auto border-t border-[#4A251C]">
+<!-- Brand & Copyright -->
+<div class="flex flex-col items-center md:items-start mb-8 md:mb-0 gap-3">
+<div class="text-xl font-headline font-bold text-[#CEA73B] flex items-center gap-2">
+<span aria-hidden="true" class="material-symbols-outlined filled-icon">school</span>
+                    FoamCollege
+                </div>
+<p class="font-body text-sm leading-relaxed text-[#FAF4E9]/70 text-center md:text-left max-w-md">
+                    © 2024 FoamCollege. Academic, non-commercial guide for spray foam professionals.
+                </p>
+</div>
+<!-- Links -->
+<nav aria-label="Footer Navigation">
+<ul class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-4 font-body text-sm leading-relaxed text-[#FAF4E9]/70">
+<li><a class="hover:text-[#FAF4E9] transition-colors focus:ring-2 focus:ring-[#CEA73B] rounded-sm outline-none" href="#">Licensing Guide</a></li>
+<li><a aria-current="page" class="text-[#CEA73B] underline focus:ring-2 focus:ring-[#CEA73B] rounded-sm outline-none" href="#">Certification Info</a></li>
+<li><a class="hover:text-[#FAF4E9] transition-colors focus:ring-2 focus:ring-[#CEA73B] rounded-sm outline-none" href="#">State Regulations</a></li>
+<li><a class="hover:text-[#FAF4E9] transition-colors focus:ring-2 focus:ring-[#CEA73B] rounded-sm outline-none" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-[#FAF4E9] transition-colors focus:ring-2 focus:ring-[#CEA73B] rounded-sm outline-none" href="#">Terms of Service</a></li>
+</ul>
+</nav>
+</div>
+</footer>
+</body></html>
