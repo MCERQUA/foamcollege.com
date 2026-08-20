@@ -1,0 +1,158 @@
+FOAMCOLLEGE.COM — BUILD STATUS
+Built: 2026-08-20 (overnight batch build, josh-desk-3@mesh)
+
+=== DOMAIN CLASSIFICATION & PRE-BUILD RESEARCH ===
+
+Category: Spray foam applicator certification / training / licensing — educational
+guide content. NOT insurance. NOT a course provider — deliberately positioned as a
+neutral, non-commercial guide.
+
+Pre-build collision check (mandatory per standing practice):
+- No local /workspace/Websites/foamcollege.com folder existed prior to this build.
+- Live probe: HTTP 000 on both https:// and http:// (domain parked, no site).
+- domains.db: status ACTIVE, auto_renew=1, locked=1, expires 2027-01-20.
+
+Sibling-site audit (dispatch named 3, I found a 4th):
+- sprayfoaminstitute.com — structured COURSE CATALOG (application fundamentals,
+  open/closed-cell technique, rig ops, OSHA safety, estimating, new-owner business
+  fundamentals). Sells/delivers actual courses.
+- sprayfoammentor.com — personal, ongoing 1:1 MENTORSHIP relationship for contractors
+  who are "stuck," not course delivery.
+- sprayfoambusinessbootcamp.com — intensive in-person BUSINESS-ONLY bootcamp, zero
+  application/technique training, explicitly "100% sales, pricing, ops, financials."
+- insulationcollege.com (found locally, NOT in original dispatch) — static HTML site
+  covering "Insulation Training, Spray Foam Certification & Contractor Education"
+  with a program catalog (Spray Foam Certification, Installation Training, Safety
+  Courses, Business Startup Program). This one, combined with sprayfoaminstitute.com,
+  comprehensively covers "get certified via a course" positioning already.
+
+Because the dispatched "certification prep / training curriculum / industry
+education" framing would have meaningfully overlapped both sprayfoaminstitute.com
+and insulationcollege.com (both are course-catalog / "take our course to get
+certified" properties), I pivoted per the dispatcher's own explicit guidance
+("if the space is already covered... consider a narrower/different angle... rather
+than a duplicate") to a genuinely distinct angle:
+
+FoamCollege = the NEUTRAL NAVIGATOR. It does not sell or deliver a course. It exists
+to explain, compare, and demystify the actual certification/licensing landscape:
+  - What SPFA PCP actually is (ISO/IEC 17024 accreditation, DoD spec recognition)
+  - How manufacturer certifications differ from and relate to SPFA PCP
+  - The real, fragmented state-by-state licensing picture (~30 states, no single
+    national standard, three different regulatory patterns)
+  - How recertification/CEU renewal cycles actually work (and what happens if you
+    let a credential lapse)
+  - An honest framework for choosing between competing certification programs
+    (not a ranked "best one" — matching credential type to your actual goal)
+  - What certification does NOT teach you (hands-on technique, business skills) —
+    with an honest hand-off to the sibling sites (Institute for courses, Mentor for
+    1:1, Bootcamp for business) rather than pretending FoamCollege covers everything
+
+Research grounding: SPFA PCP's ISO/IEC 17024 accreditation and DoD specification
+recognition, the ~30-state fragmented insulation-licensing landscape (three regulatory
+patterns: dedicated insulation license / folded into general contractor license /
+code-compliance-only), and the manufacturer-certification-as-purchasing-gate pattern
+(BASF, Icynene-Lapolla/Demilec, Carlisle) are all real, verifiable industry structures
+— not invented framing. Where program specifics change over time (exact CEU hour
+counts, renewal fee amounts), copy explicitly directs readers to confirm current
+requirements directly with the issuing body rather than asserting a specific number
+that could go stale.
+
+=== ROUTES (10 page templates, 24 static pages after generateStaticParams) ===
+/ (home)
+/topics (index)
+/topics/[slug] × 6 (spfa-pcp-certification-explained,
+  manufacturer-certifications-vs-spfa-pcp,
+  state-by-state-spray-foam-licensing-requirements,
+  how-recertification-and-ceus-actually-work,
+  choosing-between-competing-certification-programs,
+  what-certification-doesnt-teach-you)
+/blog (index)
+/blog/[slug] × 5 (see WORD COUNT below)
+/get-guidance
+/about
+/contact
+/privacy
+/terms
+/sitemap.xml, /robots.txt
+
+=== WORD COUNT ===
+6 topic pages (topic-content.ts): ~4,100 words total across intro/sections/
+  key-takeaways/FAQs (700-900 words per topic, matching prior-site depth bar)
+5 blog posts: 479–576 words each (2,544 words total)
+  - inside-the-spfa-pcp-exam.md (576w)
+  - which-states-actually-require-a-license.md (479w)
+  - the-ceu-deadline-nobody-reminds-you-about.md (496w)
+  - manufacturer-certification-programs-how-they-differ.md (489w)
+  - what-nobody-tells-you-before-you-pay-for-certification.md (504w)
+
+=== HOMEPAGE ===
+Hero: "Your Guide to Spray Foam Certification, Recertification & State Licensing" —
+subtitle explicitly states "Not a course to sell you." Sections: Navbar, Hero,
+TopicsGrid (6 cards), WhyThisMatters, ProcessSteps, Stats, TrustSignals, FAQ (6 Qs
+incl. explicit "do you sell a course?" and "how does this relate to CCA's other
+spray foam sites?"), CTA, Footer.
+
+=== STITCH COVERAGE ===
+Project: projects/11582566844678019592 ("FoamCollege — neutral certification guide")
+Design system: assets/2469679258753910222 ("FoamCollege Academic Earth") — LIGHT
+mode, WORK_SANS headline / INTER body (known-good enums, no font-enum failures this
+build), custom color #7A2E1F, ROUND_TWELVE, full designMd brief with palette +
+tone + zero-purple/pink/blue/emoji directive baked in.
+3 screens generated directly via stitch-mcp-safe.sh (raw JSON-RPC, self-run):
+  - home.html (13.3KB) — full homepage layout
+  - topic-detail.html (21.5KB) — long-form article template
+  - get-guidance.html (12.8KB) — two-column form page
+Saved to .stitch-pages/. Note: topic-detail generation returned outputComponents in
+mixed order (IMAGE screen at index 0, DESIGN screen at index 1) — extracted by
+filtering on screenType=="DESIGN" per the skill's documented gotcha, not by
+hardcoding [0].
+
+=== IMAGES ===
+13 images generated (HF nscale provider — hf-inference/FLUX.1-schnell returned
+"deprecated" on first attempt, confirming this session's known dead-endpoint issue;
+switched immediately to nscale, zero retries needed after that). All verified real
+JPEG (ff d8 ff magic bytes), 1536×960, 3.1MB total:
+hero-certification-review.jpg, hero-application-still.jpg, topic-spfa-pcp.jpg,
+topic-manufacturer-certs.jpg, topic-state-map.jpg, topic-ceu-tracking.jpg,
+topic-comparing-programs.jpg, about-credibility.jpg, cta-band.jpg,
+blog-pcp-exam.jpg, blog-state-licensing.jpg, blog-ceu-deadline.jpg,
+blog-manufacturer-comparison.jpg
+Palette: deep brick-maroon / academic gold / aged parchment throughout, no
+purple/pink/blue, no cartoonish diploma/grad-cap literalism.
+
+=== FORMS ===
+Two Netlify static forms: "contact" (name/phone/email/message) and "guidance"
+(name/phone/email/state/situation-dropdown/details). Both have AEO hidden fields
+(traffic_source, landing_url) populated client-side from utm_source/ref/referrer.
+public/__forms.html registers both forms + all fields (incl. the 5-option situation
+dropdown) for Netlify static detection.
+
+=== GATE RESULT ===
+Sweeps run (all clean): placeholder/lorem/TODO, insurance-language, leftover
+VR/UpdatesForm template scaffold, banned-hue (#-hex sweep of globals.css — all 8
+custom properties are warm-earth values, zero purple/pink/blue).
+Scrim check: Hero.tsx and topics/[slug]/page.tsx gradients bottom out at /55
+(from-ink/90 via-ink/65-70 to-ink/55). CTA.tsx uses a flat bg-ink/85 overlay (no
+gradient decay risk).
+pre-deploy-content-check.sh foamcollege.com /workspace/Websites/foamcollege.com
+  → PASS, exit 0 ("content + remote consistent — safe to deploy/repoint").
+
+=== BUILD ===
+next: 15.3.9 (pinned exact, confirmed via pnpm install output)
+pnpm-workspace.yaml: packages: ["."] present
+`pnpm run build` → Compiled successfully, 24/24 static pages generated, 3/3 export
+steps completed. No type errors, no lint failures.
+git: initialized standalone (`git init -b main`) inside foamcollege.com itself
+(NOT the parent /workspace repo — the folder had inherited the parent's git history
+via auto-save until this point; corrected before running the gate).
+origin: git@github-jambot-agent-josh-push:MCERQUA/foamcollege.com.git (added,
+not pushed — no GitHub auth in this container, build+commit only per standing rule).
+
+=== CONTACT INFO ===
+Phone: 844-967-5247
+Email: josh@contractorschoiceagency.com
+Address: 12220 E Riggs Rd, Chandler, AZ
+
+=== KNOWN GAP ===
+None outstanding. All planned routes, content, images, Stitch screens, forms, and
+gate checks are complete as of this build.
