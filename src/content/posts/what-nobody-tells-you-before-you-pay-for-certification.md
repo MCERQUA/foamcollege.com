@@ -3,7 +3,7 @@ title: "What Nobody Tells You Before You Pay for Spray Foam Certification"
 description: "An honest look at what certification does and doesn't buy you -- before you spend the money and time expecting something a credential was never designed to provide."
 date: "2026-08-11"
 category: "Guide"
-image: "/images/blog-certification-truth.jpg"
+image: "/images/hero-certification-review.jpg"
 ---
 
 Certification providers have a natural incentive to describe their credential in the most compelling terms possible — that's just how selling a course or exam works. This isn't a criticism of any specific program; it's just a reason to go in with expectations calibrated by something other than a sales page. Here's the honest version.
